@@ -42,7 +42,7 @@ public class Suite {
         }
         return escolha_tela;
     }
-    public void TelaSecundaria(Object object){
+    public void TelaSecundaria(LayoutBase object){
         TelaSecundaria telaSecundaria = new TelaSecundaria(object);
 
     }

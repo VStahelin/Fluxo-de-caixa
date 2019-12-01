@@ -2,11 +2,13 @@ package layouts;
 
 public class LayoutBase {
     private String menu_name;
+    private String button_value;
     private String item_1;
     private String item_2;
     private String item_3;
     private String item_4;
     private String item_5;
+    private int getLastNullOptions;
 
     public String getMenu_name() {
         return menu_name;
@@ -14,6 +16,14 @@ public class LayoutBase {
 
     public void setMenu_name(String menu_name) {
         this.menu_name = menu_name;
+    }
+
+    public String getButton_value() {
+        return button_value;
+    }
+
+    public void setButton_value(String button_value) {
+        this.button_value = button_value;
     }
 
     public String getItem_1() {
@@ -54,5 +64,13 @@ public class LayoutBase {
 
     public void setItem_5(String item_5) {
         this.item_5 = item_5;
+    }
+
+    public int getGetLastNullOptions() {
+        return getLastNullOptions;
+    }
+
+    public void setGetLastNullOptions(int getLastNullOptions) {
+        this.getLastNullOptions = getLastNullOptions;
     }
 }
