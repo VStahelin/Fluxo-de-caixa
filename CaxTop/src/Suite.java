@@ -1,9 +1,12 @@
-import layouts.Entrada;
+import layouts.TesteInput;
+import layouts.entrada.Entrada;
 import layouts.LayoutBase;
-import layouts.Layouts;
-import layouts.TelaSecundaria;
+import layouts.Telas;
+import layouts.entrada.Inclusao;
 
 import javax.swing.*;
+import java.util.ArrayList;
+
 public class Suite {
 
     public int escolha_tela(){
@@ -23,7 +26,7 @@ public class Suite {
                 case 1:
                     Entrada entrada = new Entrada();
                     entrada.ConfiguraTela();
-                    TelaSecundaria(entrada);
+                    TelaDeEscolha(entrada);
                     break;
                 case 2:
 
@@ -42,8 +45,19 @@ public class Suite {
         }
         return escolha_tela;
     }
-    public void TelaSecundaria(LayoutBase object){
-        TelaSecundaria telaSecundaria = new TelaSecundaria(object);
 
+    private int TelaDeEscolha(LayoutBase object) {
+        Telas telas = new Telas();
+        int escolha = telas.TelaDeEscolha(object);
+        System.out.println("Voltou"); //TODO APAGAR
+        return escolha;
+    }
+
+    public ArrayList TelaSecundaria(LayoutBase object){
+        ArrayList aa = new ArrayList();
+        Telas telas = new Telas();
+        telas.TelaComCampos(object);
+        System.out.println("Voltou"); //TODO Apagar
+        return aa;
     }
 }
