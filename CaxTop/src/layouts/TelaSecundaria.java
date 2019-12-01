@@ -2,9 +2,9 @@ package layouts;
 
 import javax.swing.*;
 
-public class EntradaAdd extends JFrame {
+public class TelaSecundaria extends JFrame {
     JFrame f;
-    public EntradaAdd(){
+    public TelaSecundaria(Object object){
 
 
         JTextField t1;

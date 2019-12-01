@@ -1,6 +1,7 @@
 import layouts.Entrada;
 import layouts.LayoutBase;
 import layouts.Layouts;
+import layouts.TelaSecundaria;
 
 import javax.swing.*;
 public class Suite {
@@ -22,6 +23,7 @@ public class Suite {
                 case 1:
                     Entrada entrada = new Entrada();
                     entrada.ConfiguraTela();
+                    TelaSecundaria(entrada);
                     break;
                 case 2:
 
@@ -36,9 +38,12 @@ public class Suite {
 
             }
         } catch (Exception e){
-
+            System.out.println(e);
         }
         return escolha_tela;
     }
+    public void TelaSecundaria(Object object){
+        TelaSecundaria telaSecundaria = new TelaSecundaria(object);
 
+    }
 }

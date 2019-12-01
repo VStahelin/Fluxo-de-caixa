@@ -9,5 +9,6 @@ public class Entrada extends LayoutBase{
         super.setItem_3(layouts.getItem_3());
         super.setItem_4(layouts.getItem_4());
         super.setItem_5(layouts.getItem_5());
+
     }
 }
