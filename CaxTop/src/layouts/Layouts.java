@@ -19,12 +19,12 @@ public enum Layouts {
             null,
             1),
     ENTRADA_ALTERACAO("Alteracao de entrada",
+            "Alterar: ",
             "Documento: ",
             "Descricao: ",
             "Data de operacao: ",
             "Valor: ",
             null,
-            "",
             1),
     ENTRADA_CONSULTA("Consulta de entrada\n",
             "Nova Consulta? ",
@@ -43,7 +43,7 @@ public enum Layouts {
             null,
             2),
 
-    SAIDA("Cadastro de entrada",
+    SAIDA("Cadastro de Saida",
             "Cadastrar",
             "Inclusao: ",
             "Alteracao: ",
@@ -59,13 +59,13 @@ public enum Layouts {
             "Valor: ",
             null,
             1),
-    SAIDA_ALTERACAO("Inclusao de saida",
+    SAIDA_ALTERACAO("Alteracao de entrada",
+            "Alterar: ",
             "Documento: ",
             "Descricao: ",
             "Data de operacao: ",
             "Valor: ",
             null,
-            "",
             1),
     SAIDA_CONSULTA("Consulta de saida\n",
             "Nova Consulta? ",
@@ -91,7 +91,6 @@ public enum Layouts {
             "item_4",
             "item_5",
             0),
-
     ;
 
     private String menu_name;

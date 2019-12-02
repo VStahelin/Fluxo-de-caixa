@@ -1,16 +1,21 @@
 package layouts;
 
+
+import WriterReader.Write;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 
 public class Telas extends JFrame {
-    private JFrame painel;
+    private int espera = 1;
     private JLabel menu_name,title, item_1_title, item_2_title, item_3_title, item_4_title, item_5_title;
     private JTextField item_1,item_2,item_3,item_4,item_5;
     private JButton back_option_value;
-    private Boolean processo = true;
     private ArrayList valores_campos = new ArrayList();
     //Facilitador de alinhamento
     int yAxis = 15;
@@ -87,18 +92,24 @@ public class Telas extends JFrame {
 
         setLayout(null);
         setVisible(true);
-        back_option_value.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent evt){
-                processo = false;
-                valores_campos.add(item_1.getText());
-                valores_campos.add(item_2.getText());
-                valores_campos.add(item_3.getText());
-                valores_campos.add(item_4.getText());
-                valores_campos.add(item_5.getText());
-                System.out.println(valores_campos);
-                setVisible(false);
-            }
-        });
+
+        int i = 1;
+
+            back_option_value.addActionListener(new ActionListener(){
+                public void actionPerformed(ActionEvent evt){
+                    setVisible(false);
+                    valores_campos.add(item_1.getText());
+                    valores_campos.add(item_2.getText());
+                    valores_campos.add(item_3.getText());
+                    valores_campos.add(item_4.getText());
+                    valores_campos.add(item_5.getText());
+                    System.out.println(valores_campos);
+                    espera = 0;
+                    Write write = new Write();
+                    write.Write(valores_campos,true);
+                }
+            });
+
     }
     public int TelaDeEscolha(LayoutBase object){
         String mensagem = "XYZ COMERCIO DE PRODUTOS LTDA\n" + object.getMenu_name() + "\n";
@@ -133,9 +144,25 @@ public class Telas extends JFrame {
         }
 
         mensagem = mensagem + "0 - Voltar";
-
-        System.out.println(mensagem);
         int escolha_tela = Integer.parseInt(JOptionPane.showInputDialog(null, mensagem,"",1));
+
         return escolha_tela;
     }
+    public int getEspera(){
+        return this.espera;
+    }
+    public static void escrever(String path, String texto) {
+        try {
+            // O parametro é que indica se deve sobrescrever ou continua no
+            // arquivo.
+            FileWriter fw = new FileWriter(path, true);
+            BufferedWriter conexao = new BufferedWriter(fw);
+            conexao.write(texto);
+            conexao.newLine();
+            conexao.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
