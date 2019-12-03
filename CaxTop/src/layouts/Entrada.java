@@ -2,7 +2,7 @@ package layouts;
 
 public class Entrada extends LayoutBase {
     Layouts layouts;
-    public void ConfiguraTela(int escolha){
+    public void configuraTela(int escolha){
         if (escolha == 0){
             layouts = Layouts.ENTRADA;
         }else if (escolha == 1){
@@ -18,23 +18,23 @@ public class Entrada extends LayoutBase {
             layouts = Layouts.ENTRADA_EXCLUSAO;
         }
     }
-    public void Entrada(int escolha){
+    public void entrada(int escolha){
         try {
             switch (escolha){
                 case 0:
-                    ConfiguraTela(0);
+                    configuraTela(0);
                     break;
                 case 1:
-                    ConfiguraTela(1);
+                    configuraTela(1);
                     break;
                 case 2:
-                    ConfiguraTela(2);
+                    configuraTela(2);
                     break;
                 case 3:
-                    ConfiguraTela(3);
+                    configuraTela(3);
                     break;
                 case 4:
-                    ConfiguraTela(4);
+                    configuraTela(4);
                     break;
             }
 

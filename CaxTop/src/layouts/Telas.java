@@ -1,13 +1,11 @@
 package layouts;
 
+import model.beans.Produto;
 import model.dao.EntradaDao;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.sql.Date;
 import java.util.ArrayList;
 
@@ -121,9 +119,74 @@ public class Telas extends JFrame {
                     }
                 }
             });
+    }
+
+    public void TelaComCampos(LayoutBase object, Produto produto){
+        //Display Setup
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(380,260);
+
+        title = new JLabel("XYZ COMERCIO DE PRODUTOS LTDA");
+        title.setBounds(80 ,0 , 300,30);
+        add(title);
+
+        menu_name = new JLabel(object.getMenu_name());
+        menu_name.setBounds(15 + xAxis,0 + yAxis, 200,30);
+        add(menu_name);
+
+        back_option_value = new JButton(object.getButton_value());//create button
+        back_option_value.setBounds(55 + xAxis,160 + yAxis,100, 40);
+        add(back_option_value);
+
+        item_1_title  = new JLabel(object.getItem_1());
+        item_1 = new JTextField(String.valueOf(produto.getDocumento()));
+        item_1_title.setBounds(15,30 + yAxis, 200,30);
+        item_1.setBounds(10 + xAxis,30 + yAxis, 200,30);
+
+        item_2_title = new JLabel(object.getItem_2());
+        item_2 = new JTextField(produto.getDescricao());
+        item_2_title.setBounds(15,60 + yAxis, 200,30);
+        item_2.setBounds(10 + xAxis,60 + yAxis, 200,30);
+
+        item_3_title = new JLabel(object.getItem_3());
+        item_3 = new JTextField(String.valueOf(produto.getDataInclusao()));
+        item_3_title.setBounds(15,90 + yAxis, 200,30);
+        item_3.setBounds(10 + xAxis,90 + yAxis, 200,30);
+
+        item_4_title = new JLabel(object.getItem_4());
+        item_4 = new JTextField(String.valueOf((produto.getValor())));
+        item_4_title.setBounds(15,120 + yAxis, 200,30);
+        item_4.setBounds(10 + xAxis,120 + yAxis, 200,30);
+
+
+        add(item_1);add(item_2);add(item_3);add(item_4);
+        add(item_1_title);add(item_2_title);add(item_3_title);add(item_4_title);
+
+        setLayout(null);
+        setVisible(true);
+
+        back_option_value.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt){
+                try{
+                    entradaDao.update(Integer.parseInt(item_1.getText()),
+                            item_2.getText(),
+                            Date.valueOf(item_3.getText()),
+                            Double.parseDouble(item_4.getText()));
+                    validate = true;
+                }catch (Exception e){
+                    JOptionPane.showMessageDialog(null, "Dados Invalidos");
+                }
+                if (validate == true){
+                    setVisible(false);
+                    espera = 0;
+                }
+            }
+        });
 
     }
-    public int TelaDeEscolha(LayoutBase object){
+
+
+    public int telaDeEscolha(LayoutBase object){
         String mensagem = "XYZ COMERCIO DE PRODUTOS LTDA\n" + object.getMenu_name() + "\n";
         int lastNullOptions =  object.getGetLastNullOptions();
 
@@ -159,6 +222,18 @@ public class Telas extends JFrame {
         int escolha_tela = Integer.parseInt(JOptionPane.showInputDialog(null, mensagem,"",1));
 
         return escolha_tela;
+    }
+
+    public void telaDeEscolha(LayoutBase object, Produto produto){
+        String mensagem = "XYZ COMERCIO DE PRODUTOS LTDA\n" + object.getMenu_name() + "\n";
+
+
+        mensagem = mensagem  + object.getItem_1() + ": " + produto.getDocumento() +"\n";
+        mensagem = mensagem  + object.getItem_2() + ": " + produto.getDescricao() +"\n";
+        mensagem = mensagem  + object.getItem_3() + ": " + produto.getValor() +"\n";
+
+        JOptionPane.showMessageDialog(null, mensagem,"",1);
+
     }
 
     public int getEspera() {
