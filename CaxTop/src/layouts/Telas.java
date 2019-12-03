@@ -1,17 +1,18 @@
 package layouts;
 
-
-import WriterReader.Write;
+import model.dao.EntradaDao;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class Telas extends JFrame {
+    EntradaDao entradaDao = new EntradaDao();
     private int espera = 1;
     private JLabel menu_name,title, item_1_title, item_2_title, item_3_title, item_4_title, item_5_title;
     private JTextField item_1,item_2,item_3,item_4,item_5;
@@ -59,12 +60,6 @@ public class Telas extends JFrame {
         item_4_title.setBounds(15,120 + yAxis, 200,30);
         item_4.setBounds(10 + xAxis,120 + yAxis, 200,30);
 
-        item_5_title = new JLabel(object.getItem_5());
-        item_5 = new JTextField();
-        item_5_title.setBounds(15 ,150 + yAxis, 200,30);
-        item_5.setBounds(10 + xAxis,150 + yAxis, 200,30);
-
-
         int lastNullOptions =  object.getGetLastNullOptions();
         switch (lastNullOptions){
             case 4:
@@ -84,8 +79,6 @@ public class Telas extends JFrame {
                 add(item_1_title);add(item_2_title);add(item_3_title);add(item_4_title);
                 break;
             case 0:
-                add(item_1);add(item_2);add(item_3);add(item_4);add(item_5);
-                add(item_1_title);add(item_2_title);add(item_3_title);add(item_4_title);add(item_5_title);
                 break;
 
         }
@@ -93,20 +86,12 @@ public class Telas extends JFrame {
         setLayout(null);
         setVisible(true);
 
-        int i = 1;
-
             back_option_value.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent evt){
                     setVisible(false);
-                    valores_campos.add(item_1.getText());
-                    valores_campos.add(item_2.getText());
-                    valores_campos.add(item_3.getText());
-                    valores_campos.add(item_4.getText());
-                    valores_campos.add(item_5.getText());
-                    System.out.println(valores_campos);
                     espera = 0;
-                    Write write = new Write();
-                    write.Write(valores_campos,true);
+                    //DataBaseOperations(object.get);
+                    entradaDao.insert(Integer.parseInt(item_1.getText()),item_2.getText(), Date.valueOf(item_3.getText()),Double.parseDouble(item_4.getText()));
                 }
             });
 
@@ -148,21 +133,17 @@ public class Telas extends JFrame {
 
         return escolha_tela;
     }
-    public int getEspera(){
-        return this.espera;
+
+    public void DataBaseOperations(int idOperation, String item_1,String item_2,String item_3,String item_4){
+
     }
-    public static void escrever(String path, String texto) {
-        try {
-            // O parametro é que indica se deve sobrescrever ou continua no
-            // arquivo.
-            FileWriter fw = new FileWriter(path, true);
-            BufferedWriter conexao = new BufferedWriter(fw);
-            conexao.write(texto);
-            conexao.newLine();
-            conexao.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+    public int getEspera() {
+        return espera;
+    }
+
+    public void setEspera(int espera) {
+        this.espera = espera;
     }
 
 }

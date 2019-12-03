@@ -2,7 +2,24 @@ package layouts;
 
 public enum Layouts {
 
-    ENTRADA("Cadastro de entrada",
+    /*
+    * Operation Id List
+    * Entrada = 1
+    * Saida = 2
+    * Relatorio = 3
+    *
+    * Inclusao = 1
+    * Alteracao = 2
+    * Consulta = 3
+    * Exlusao = 4
+    *
+    * Contatene no final
+    *
+    * EX: ENTRADA_INCLUSAO = 11
+    * */
+
+    ENTRADA(1,
+            "Cadastro de entrada",
             "Cadastrar",
             "Inclusao: ",
             "Alteracao: ",
@@ -10,7 +27,8 @@ public enum Layouts {
             "Exclusao: ",
             null,
             1),
-    ENTRADA_INCLUSAO("Inclusao de entrada",
+    ENTRADA_INCLUSAO(11,
+            "Inclusao de entrada",
             "Cadastrar",
             "Documento: ",
             "Descricao: ",
@@ -18,7 +36,8 @@ public enum Layouts {
             "Valor: ",
             null,
             1),
-    ENTRADA_ALTERACAO("Alteracao de entrada",
+    ENTRADA_ALTERACAO(12,
+            "Alteracao de entrada",
             "Alterar: ",
             "Documento: ",
             "Descricao: ",
@@ -26,7 +45,8 @@ public enum Layouts {
             "Valor: ",
             null,
             1),
-    ENTRADA_CONSULTA("Consulta de entrada\n",
+    ENTRADA_CONSULTA(13,
+            "Consulta de entrada\n",
             "Nova Consulta? ",
             "Documento: ",
             "Descricao: ",
@@ -34,7 +54,8 @@ public enum Layouts {
             null,
             null,
             2),
-    ENTRADA_EXCLUSAO("Exclusao de entrada",
+    ENTRADA_EXCLUSAO(14,
+            "Exclusao de entrada",
             "Nova Exclusao? ",
             "Documento: ",
             "Descricao: ",
@@ -43,7 +64,8 @@ public enum Layouts {
             null,
             2),
 
-    SAIDA("Cadastro de Saida",
+    SAIDA(2,
+            "Cadastro de Saida",
             "Cadastrar",
             "Inclusao: ",
             "Alteracao: ",
@@ -51,7 +73,8 @@ public enum Layouts {
             "Exclusao: ",
             null,
             1),
-    SAIDA_INCLUSAO("Inclusao de saida",
+    SAIDA_INCLUSAO(21,
+            "Inclusao de saida",
             "Cadastrar",
             "Documento: ",
             "Descricao: ",
@@ -59,7 +82,8 @@ public enum Layouts {
             "Valor: ",
             null,
             1),
-    SAIDA_ALTERACAO("Alteracao de entrada",
+    SAIDA_ALTERACAO(22,
+            "Alteracao de entrada",
             "Alterar: ",
             "Documento: ",
             "Descricao: ",
@@ -67,7 +91,8 @@ public enum Layouts {
             "Valor: ",
             null,
             1),
-    SAIDA_CONSULTA("Consulta de saida\n",
+    SAIDA_CONSULTA(23,
+            "Consulta de saida\n",
             "Nova Consulta? ",
             "Documento: ",
             "Descricao: ",
@@ -75,7 +100,8 @@ public enum Layouts {
             null,
             null,
             2),
-    SAIDA_EXCLUSAO("Exclusao de saida",
+    SAIDA_EXCLUSAO(24,
+            "Exclusao de saida",
             "Nova Exclusao? ",
             "Documento: ",
             "Descricao: ",
@@ -83,7 +109,8 @@ public enum Layouts {
             null,
             null,
             2),
-    RELATORIO("Relatorio",
+    RELATORIO(3,
+            "Relatorio",
             "button_value",
             "item_1",
             "item_2",
@@ -92,6 +119,8 @@ public enum Layouts {
             "item_5",
             0),
     ;
+
+    private int operationId;
 
     private String menu_name;
     private String item_1;
@@ -102,8 +131,8 @@ public enum Layouts {
     private String button_value;
     private int lastNullOptions;
 
-
-    Layouts(String menu_name,
+    Layouts(int operationId,
+            String menu_name,
             String button_value,
             String item_1,
             String item_2,
@@ -112,6 +141,7 @@ public enum Layouts {
             String item_5,
             int lastNullOptions) {
 
+        this.operationId = operationId;
         this.menu_name = menu_name;
         this.item_1 = item_1;
         this.item_2 = item_2;
@@ -120,6 +150,14 @@ public enum Layouts {
         this.item_5 = item_5;
         this.button_value = button_value;
         this.lastNullOptions = lastNullOptions;
+    }
+
+    public int getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(int operationId) {
+        this.operationId = operationId;
     }
 
     public String getMenu_name() {

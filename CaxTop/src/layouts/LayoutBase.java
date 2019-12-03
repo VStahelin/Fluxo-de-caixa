@@ -1,6 +1,7 @@
 package layouts;
 
 public class LayoutBase {
+    private int operation_id;
     private String menu_name;
     private String button_value;
     private String item_1;
@@ -9,6 +10,14 @@ public class LayoutBase {
     private String item_4;
     private String item_5;
     private int getLastNullOptions;
+
+    public int getOperation_id() {
+        return operation_id;
+    }
+
+    public void setOperation_id(int operation_id) {
+        this.operation_id = operation_id;
+    }
 
     public String getMenu_name() {
         return menu_name;
