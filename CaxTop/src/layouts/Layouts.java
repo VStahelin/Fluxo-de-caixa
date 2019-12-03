@@ -8,11 +8,6 @@ public enum Layouts {
     * Saida = 2
     * Relatorio = 3
     *
-    * Inclusao = 1
-    * Alteracao = 2
-    * Consulta = 3
-    * Exlusao = 4
-    *
     * Contatene no final
     *
     * EX: ENTRADA_INCLUSAO = 11
@@ -23,7 +18,7 @@ public enum Layouts {
             "Cadastrar",
             "Inclusao: ",
             "Alteracao: ",
-            "colsulta: ",
+            "Consulta: ",
             "Exclusao: ",
             null,
             1),
@@ -69,7 +64,7 @@ public enum Layouts {
             "Cadastrar",
             "Inclusao: ",
             "Alteracao: ",
-            "colsulta: ",
+            "Consulta: ",
             "Exclusao: ",
             null,
             1),
@@ -112,12 +107,31 @@ public enum Layouts {
     RELATORIO(3,
             "Relatorio",
             "button_value",
-            "item_1",
-            "item_2",
-            "item_3",
-            "item_4",
-            "item_5",
-            0),
+            "Fechamento do Caixa",
+            "Balanco por Periodo",
+            null,
+            null,
+            null,
+            3),
+    RELATORIO_FECHAMENTO(31,
+            "Fechamento do Caixa PG 009",
+            "button_value",
+            null,
+            null,
+            null,
+            null,
+            null,
+            4),
+    RELATORIO_FECHAMENTO_ENTRE_DATAS(32,
+            "Fechamento do Caixa PG 009",
+            "Pesquisar",
+            "Data Inicio",
+            "Data Fim",
+            null,
+            null,
+            null,
+            3),
+
     ;
 
     private int operationId;

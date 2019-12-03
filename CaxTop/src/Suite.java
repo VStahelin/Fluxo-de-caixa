@@ -1,10 +1,12 @@
 import layouts.LayoutBase;
-import layouts.Telas;
+import layouts.GerenciadorAcaoTelas;
 import layouts.Entrada;
-import layouts.relatorios.Relatorio;
+import layouts.Relatorio;
 import layouts.Saida;
+import layouts.relatorio.RelatorioDoDia;
 import model.beans.Produto;
 import model.dao.EntradaDao;
+import model.dao.SaidaDao;
 
 import javax.swing.*;
 
@@ -56,6 +58,20 @@ public class Suite {
                                     JOptionPane.showMessageDialog(null, "Aquivo invalido");
                                 }
                                 break;
+                            case 4:
+                                try {
+                                    int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira o N. do Aquivo"));
+                                    EntradaDao entradaDao = new EntradaDao();
+                                    int confirmacao = JOptionPane.showConfirmDialog(null, "Confirmar exclusao do documento: " + documento);
+                                    if (confirmacao == 0 ){
+                                        entradaDao.delete(documento);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Operacao abortada");
+                                    }
+                                }catch (Exception e){
+                                    JOptionPane.showMessageDialog(null, "Aquivo invalido");
+                                }
+                                break;
                             default:
                                 JOptionPane.showMessageDialog(null, "Opcao Invalida");
                                 break;
@@ -63,26 +79,74 @@ public class Suite {
                         break;
                     case 2:
                         Saida saida = new Saida();
-                        saida.Saida(0);
+                        saida.saida(0);
                         resultado_escolha = telaDeEscolha(saida);
-                        if (resultado_escolha > 4){
-                            JOptionPane.showMessageDialog(null, "Opcao Invalida");
-                            break;
-                        }else if (resultado_escolha == 0){
-                            break;
+                        switch (resultado_escolha){
+                            case 0:
+                                break;
+                            case 1:
+                                saida.saida(1);
+                                telaDeCampos(saida);
+                                break;
+                            case 2:
+                                try {
+                                    int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira o N. do Aquivo"));
+                                    SaidaDao saidaDao = new SaidaDao();
+                                    saida.saida(resultado_escolha);
+                                    telaDeCampos(saida,saidaDao.selectDocumento(documento));
+                                }catch (Exception e){
+                                    JOptionPane.showMessageDialog(null, "Aquivo invalido");
+                                }
+                                break;
+                            case 3:
+                                try {
+                                    int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira o N. do Aquivo"));
+                                    SaidaDao saidaDao = new SaidaDao();
+                                    saida.saida(resultado_escolha);
+                                    telaDeEscolha(saida,saidaDao.selectDocumento(documento));
+                                }catch (Exception e){
+                                    JOptionPane.showMessageDialog(null, "Aquivo invalido");
+                                }
+                                break;
+                            case 4:
+                                try {
+                                    int documento = Integer.parseInt(JOptionPane.showInputDialog(null, "Insira o N. do Aquivo"));
+                                    SaidaDao saidaDao = new SaidaDao();
+                                    int confirmacao = JOptionPane.showConfirmDialog(null, "Confirmar exclusao do documento: " + documento);
+                                    if (confirmacao == 0 ){
+                                        saidaDao.delete(documento);
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Operacao abortada");
+                                    }
+                                }catch (Exception e){
+                                    JOptionPane.showMessageDialog(null, "Aquivo invalido");
+                                }
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Opcao Invalida");
+                                break;
                         }
-                        saida.Saida(resultado_escolha);
-                        telaDeCampos(saida);
                         break;
                     case 3:
                         Relatorio relatorio = new Relatorio();
-                        relatorio.ConfiguraTela();
+                        relatorio.relatorio(0);
                         resultado_escolha = telaDeEscolha(relatorio);
-                        if (resultado_escolha > 4){
-                            JOptionPane.showMessageDialog(null, "Opcao Invalida");
-                            break;
-                        }else if (resultado_escolha == 0){
-                            break;
+                        switch (resultado_escolha){
+                            case 1:
+                                RelatorioDoDia relatorioDoDia = new RelatorioDoDia();
+                                JOptionPane.showMessageDialog(null,relatorioDoDia.gerarRelatorioDoDia());
+                                break;
+                            case 2:
+                                try {
+                                    relatorio.relatorio(2);
+                                    telaDeCampos(relatorio);
+                                }catch (Exception e){
+                                    System.out.println(e);
+                                }
+                                break;
+                            default:
+                                JOptionPane.showMessageDialog(null, "Opcao Invalida");
+                                break;
                         }
                         break;
                     case 0:
@@ -104,22 +168,22 @@ public class Suite {
     }
 
     private int telaDeEscolha(LayoutBase object) {
-        Telas telas = new Telas();
-        int escolha = telas.telaDeEscolha(object);
+        GerenciadorAcaoTelas gerenciadorAcaoTelas = new GerenciadorAcaoTelas();
+        int escolha = gerenciadorAcaoTelas.telaDeEscolha(object);
         System.out.println("Voltou"); //TODO APAGAR
         return escolha;
     }
 
     private void telaDeEscolha(LayoutBase object,Produto produto) {
-        Telas telas = new Telas();
-        telas.telaDeEscolha(object,produto);
+        GerenciadorAcaoTelas gerenciadorAcaoTelas = new GerenciadorAcaoTelas();
+        gerenciadorAcaoTelas.telaDeEscolha(object,produto);
         System.out.println("Voltou"); //TODO APAGAR
     }
 
     private void telaDeCampos(LayoutBase object){
-        Telas telas = new Telas();
-        telas.TelaComCampos(object);
-        while (telas.getEspera() == 1){
+        GerenciadorAcaoTelas gerenciadorAcaoTelas = new GerenciadorAcaoTelas();
+        gerenciadorAcaoTelas.TelaComCampos(object);
+        while (gerenciadorAcaoTelas.getEspera() == 1){
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
@@ -134,9 +198,9 @@ public class Suite {
         }
     }
     private void telaDeCampos(LayoutBase object, Produto produto){
-        Telas telas = new Telas();
-        telas.TelaComCampos(object,produto);
-        while (telas.getEspera() == 1){
+        GerenciadorAcaoTelas gerenciadorAcaoTelas = new GerenciadorAcaoTelas();
+        gerenciadorAcaoTelas.TelaComCampos(object,produto);
+        while (gerenciadorAcaoTelas.getEspera() == 1){
             try {
                 sleep(1000);
             } catch (InterruptedException e) {

@@ -2,15 +2,20 @@ package layouts;
 
 import model.beans.Produto;
 import model.dao.EntradaDao;
+import model.dao.RelatorioDao;
+import model.dao.SaidaDao;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
-public class Telas extends JFrame {
+public class GerenciadorAcaoTelas extends JFrame {
     EntradaDao entradaDao = new EntradaDao();
+    SaidaDao saidaDao = new SaidaDao();
+    RelatorioDao relatorioDao = new RelatorioDao();
     private int espera = 1;
     private boolean validate = false;
 
@@ -88,6 +93,7 @@ public class Telas extends JFrame {
 
             back_option_value.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent evt){
+                    System.out.println(object.getOperation_id());
                     switch (object.getOperation_id()){
                         case 11:
                             try{
@@ -111,7 +117,28 @@ public class Telas extends JFrame {
                                 JOptionPane.showMessageDialog(null, "Dados Invalidos");
                             }
                             break;
-
+                        case 21:
+                            try{
+                                saidaDao.insert(Integer.parseInt(item_1.getText()),
+                                        item_2.getText(),
+                                        Date.valueOf(item_3.getText()),
+                                        Double.parseDouble(item_4.getText()));
+                                validate = true;
+                            }catch (Exception e){
+                                JOptionPane.showMessageDialog(null, "Dados Invalidos");
+                            }
+                            break;
+                        case 22:
+                            try{
+                                saidaDao.update(Integer.parseInt(item_1.getText()),
+                                        item_2.getText(),
+                                        Date.valueOf(item_3.getText()),
+                                        Double.parseDouble(item_4.getText()));
+                                validate = true;
+                            }catch (Exception e){
+                                JOptionPane.showMessageDialog(null, "Dados Invalidos");
+                            }
+                            break;
                     }
                     if (validate == true){
                         setVisible(false);
@@ -240,7 +267,5 @@ public class Telas extends JFrame {
         return espera;
     }
 
-    public void setEspera(int espera) {
-        this.espera = espera;
-    }
+
 }

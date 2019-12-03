@@ -1,27 +1,21 @@
 package layouts;
 
-public class Saida extends LayoutBase {
+public class Relatorio extends LayoutBase {
     Layouts layouts;
     public void configuraTela(int escolha) {
         switch (escolha) {
             case 0:
-                layouts = Layouts.SAIDA;
+                layouts = Layouts.RELATORIO;
                 break;
             case 1:
-                layouts = Layouts.SAIDA_INCLUSAO;
+                layouts = Layouts.RELATORIO_FECHAMENTO;
                 break;
             case 2:
-                layouts = Layouts.SAIDA_ALTERACAO;
-                break;
-            case 3:
-                layouts = Layouts.SAIDA_CONSULTA;
-                break;
-            case 4:
-                layouts = Layouts.SAIDA_EXCLUSAO;
+                layouts = Layouts.RELATORIO_FECHAMENTO_ENTRE_DATAS;
                 break;
         }
     }
-    public void saida(int escolha){
+    public void relatorio(int escolha){
         try {
             switch (escolha){
                 case 0:
@@ -32,12 +26,6 @@ public class Saida extends LayoutBase {
                     break;
                 case 2:
                     configuraTela(2);
-                    break;
-                case 3:
-                    configuraTela(3);
-                    break;
-                case 4:
-                    configuraTela(4);
                     break;
             }
 

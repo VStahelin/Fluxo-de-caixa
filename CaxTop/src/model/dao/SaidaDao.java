@@ -1,20 +1,19 @@
 package model.dao;
 
 import connection.ConnectionFactory;
-import layouts.Entrada;
 import model.beans.Produto;
 
 import javax.swing.*;
 import java.sql.*;
 
-public class EntradaDao {
+public class SaidaDao {
 
     public void insert(int documento, String descricao, Date dataInclusao, Double valor){
         Connection connection = ConnectionFactory.getConnction();
         PreparedStatement stmt = null;
 
         try {
-            stmt = connection.prepareStatement("INSERT INTO entrada (documento, descricao, dataInclusao, valor) VALUES(?,?,?,?)");
+            stmt = connection.prepareStatement("INSERT INTO saida (documento, descricao, dataInclusao, valor) VALUES(?,?,?,?)");
             stmt.setInt(1,documento);
             stmt.setString(2,descricao);
             stmt.setDate(3, dataInclusao);
@@ -34,7 +33,7 @@ public class EntradaDao {
         PreparedStatement stmt = null;
         String a = "UPDATE entrada SET descricao='?', dataInclusao='?', valor =? WHERE documento = ?";
         try {
-            stmt = connection.prepareStatement("UPDATE entrada SET descricao = ?, dataInclusao = ?, valor = ? WHERE documento = ?");
+            stmt = connection.prepareStatement("UPDATE saida SET descricao = ?, dataInclusao = ?, valor = ? WHERE documento = ?");
             stmt.setString(1,descricao);
             stmt.setDate(2, dataInclusao);
             stmt.setDouble(3, valor); //Resquisito casting
@@ -53,7 +52,7 @@ public class EntradaDao {
         Connection connection = ConnectionFactory.getConnction();
         PreparedStatement stmt = null;
         try {
-            stmt = connection.prepareStatement("DELETE FROM entrada WHERE documento=?");
+            stmt = connection.prepareStatement("DELETE FROM saida WHERE documento=?");
             stmt.setInt(1,documento);
             stmt.executeLargeUpdate();
             JOptionPane.showMessageDialog(null, "Excluido");
@@ -72,7 +71,7 @@ public class EntradaDao {
 
         try {
 
-            stmt = connection.prepareStatement("SELECT * FROM entrada WHERE documento ="+ documento);
+            stmt = connection.prepareStatement("SELECT * FROM saida WHERE documento ="+ documento);
             resultSet = stmt.executeQuery();
             while (resultSet.next()){
 
