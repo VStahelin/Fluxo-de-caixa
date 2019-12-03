@@ -9,9 +9,43 @@ import java.util.List;
 
 public class RelatorioDao {
 
+    public double getSaldoEntradaDia(){
+        double saldoEntrada = 0;
+        Connection connection = ConnectionFactory.getConnction();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement("SELECT valor from entrada where dataInclusao = (SELECT CURRENT_DATE FROM DUAL)");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                saldoEntrada = saldoEntrada + resultSet.getInt("valor");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return saldoEntrada;
+    }
+
+    public double getSaldoSaidaDia(){
+        double saldoSaida = 0;
+        Connection connection = ConnectionFactory.getConnction();
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.prepareStatement("SELECT valor from saida where dataInclusao = (SELECT CURRENT_DATE FROM DUAL)");
+            resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                saldoSaida = saldoSaida + resultSet.getInt("valor");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return saldoSaida;
+    }
+
     public double getSaldoAnterior(){
-        int saldoEntrada = 0;
-        int saldoSaida = 0;
+        double saldoEntrada = 0;
+        double saldoSaida = 0;
         Connection connection = ConnectionFactory.getConnction();
         PreparedStatement statement = null;
         ResultSet resultSet = null;

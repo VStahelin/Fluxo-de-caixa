@@ -136,14 +136,6 @@ public class Suite {
                                 RelatorioDoDia relatorioDoDia = new RelatorioDoDia();
                                 JOptionPane.showMessageDialog(null,relatorioDoDia.gerarRelatorioDoDia());
                                 break;
-                            case 2:
-                                try {
-                                    relatorio.relatorio(2);
-                                    telaDeCampos(relatorio);
-                                }catch (Exception e){
-                                    System.out.println(e);
-                                }
-                                break;
                             default:
                                 JOptionPane.showMessageDialog(null, "Opcao Invalida");
                                 break;
