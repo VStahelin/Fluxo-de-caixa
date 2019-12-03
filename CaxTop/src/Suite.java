@@ -1,9 +1,8 @@
 import layouts.LayoutBase;
 import layouts.GerenciadorAcaoTelas;
 import layouts.Entrada;
-import layouts.Relatorio;
 import layouts.Saida;
-import layouts.relatorio.RelatorioDoDia;
+import layouts.relatorio.Relatorio;
 import model.beans.Produto;
 import model.dao.EntradaDao;
 import model.dao.SaidaDao;
@@ -128,12 +127,12 @@ public class Suite {
                         }
                         break;
                     case 3:
-                        Relatorio relatorio = new Relatorio();
+                        layouts.Relatorio relatorio = new layouts.Relatorio();
                         relatorio.relatorio(0);
                         resultado_escolha = telaDeEscolha(relatorio);
                         switch (resultado_escolha){
                             case 1:
-                                RelatorioDoDia relatorioDoDia = new RelatorioDoDia();
+                                Relatorio relatorioDoDia = new Relatorio();
                                 JOptionPane.showMessageDialog(null,relatorioDoDia.gerarRelatorioDoDia());
                                 break;
                             default:

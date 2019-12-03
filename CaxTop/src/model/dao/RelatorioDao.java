@@ -72,6 +72,7 @@ public class RelatorioDao {
 
         return saldoEntrada - saldoSaida;
     }
+
     public List<Produto> getEntradaDia(){
         long millis=System.currentTimeMillis();
         java.sql.Date date = new java.sql.Date(millis);
@@ -130,7 +131,6 @@ public class RelatorioDao {
         }
         return produtos;
     }
-
     public List<Produto> getEntradaDias(String dataInicio, String dataFim){
         Connection connection = ConnectionFactory.getConnction();
         PreparedStatement statement = null;
@@ -159,49 +159,31 @@ public class RelatorioDao {
         return produtos;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public Produto selectDocumento(int documento){
+    public List<Produto> getJaneiro(int ano){
+        String dataInicio = ano+"-01-01";
+        String dataFim = ano+"-01-31";
         Connection connection = ConnectionFactory.getConnction();
-        PreparedStatement stmt = null;
+        PreparedStatement statement = null;
         ResultSet resultSet = null;
-        Produto produto = new Produto();
+        List<Produto> produtos = new ArrayList<>();
 
         try {
+            statement = connection.prepareStatement("SELECT * from saida where(dataInclusao BETWEEN "+ dataInicio+" AND"+dataFim+" )");
+            resultSet = statement.executeQuery();
 
-            stmt = connection.prepareStatement("SELECT * FROM entrada WHERE documento ="+ documento);
-            resultSet = stmt.executeQuery();
             while (resultSet.next()){
 
+                Produto produto = new Produto();
                 produto.setDocumento(resultSet.getInt("documento"));
                 produto.setDescricao(resultSet.getString("descricao"));
                 produto.setDataInclusao(resultSet.getDate("dataInclusao"));
                 produto.setValor(resultSet.getDouble("valor"));
+                produtos.add(produto);
             }
 
-            System.out.println(produto.getDocumento());
-            System.out.println(produto.getDescricao());
-            System.out.println(produto.getDataInclusao());
-            System.out.println(produto.getValor());
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }catch (Exception e){
+            System.out.println(e);
         }
-        return produto;
+        return produtos;
     }
 }

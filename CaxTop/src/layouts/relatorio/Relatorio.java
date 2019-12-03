@@ -6,7 +6,7 @@ import model.dao.RelatorioDao;
 import javax.swing.*;
 import java.util.List;
 
-public class RelatorioDoDia {
+public class Relatorio {
     Dates dates = new Dates();
     RelatorioDao relatorioDao = new RelatorioDao();
 
@@ -51,4 +51,5 @@ public class RelatorioDoDia {
         }
         return relatorio;
     }
+
 }
