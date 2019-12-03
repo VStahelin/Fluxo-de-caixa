@@ -11,7 +11,7 @@ import java.util.List;
 
 public class EntradaDao {
 
-    public String insert(int documento, String descricao, Date dataInclusao, Double valor){
+    public void insert(int documento, String descricao, Date dataInclusao, Double valor){
         Connection connection = ConnectionFactory.getConnction();
         PreparedStatement stmt = null;
 
@@ -25,11 +25,30 @@ public class EntradaDao {
             stmt.executeLargeUpdate();
             JOptionPane.showMessageDialog(null, "Inserido");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Inserido" + e);
+            JOptionPane.showMessageDialog(null, "Erro em inserir: " + e);
             e.printStackTrace();
         }finally {
             ConnectionFactory.closeConnection(connection, stmt);
-            return "Finalizado";
+        }
+    }
+    public void update(int documento, String descricao, Date dataInclusao, Double valor){
+        Connection connection = ConnectionFactory.getConnction();
+        PreparedStatement stmt = null;
+        String a = "UPDATE entrada SET descricao='?', dataInclusao='?', valor =? WHERE documento = ?";
+        try {
+            stmt = connection.prepareStatement("UPDATE entrada SET descricao = ?, dataInclusao = ?, valor = ? WHERE documento = ?");
+            stmt.setString(1,descricao);
+            stmt.setDate(2, dataInclusao);
+            stmt.setDouble(3, valor); //Resquisito casting
+            stmt.setInt(4,documento);
+
+            stmt.executeLargeUpdate();
+            JOptionPane.showMessageDialog(null, "Alterado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro em Alterar:  " + e);
+            e.printStackTrace();
+        }finally {
+            ConnectionFactory.closeConnection(connection, stmt);
         }
     }
 }

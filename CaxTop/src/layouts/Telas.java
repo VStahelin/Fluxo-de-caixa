@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class Telas extends JFrame {
     EntradaDao entradaDao = new EntradaDao();
     private int espera = 1;
+    private boolean validate = false;
+
     private JLabel menu_name,title, item_1_title, item_2_title, item_3_title, item_4_title, item_5_title;
     private JTextField item_1,item_2,item_3,item_4,item_5;
     private JButton back_option_value;
@@ -88,10 +90,35 @@ public class Telas extends JFrame {
 
             back_option_value.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent evt){
-                    setVisible(false);
-                    espera = 0;
-                    //DataBaseOperations(object.get);
-                    entradaDao.insert(Integer.parseInt(item_1.getText()),item_2.getText(), Date.valueOf(item_3.getText()),Double.parseDouble(item_4.getText()));
+                    switch (object.getOperation_id()){
+                        case 11:
+                            try{
+                                entradaDao.insert(Integer.parseInt(item_1.getText()),
+                                        item_2.getText(),
+                                        Date.valueOf(item_3.getText()),
+                                        Double.parseDouble(item_4.getText()));
+                                validate = true;
+                            }catch (Exception e){
+                                JOptionPane.showMessageDialog(null, "Dados Invalidos");
+                            }
+                            break;
+                        case 12:
+                            try{
+                                entradaDao.update(Integer.parseInt(item_1.getText()),
+                                        item_2.getText(),
+                                        Date.valueOf(item_3.getText()),
+                                        Double.parseDouble(item_4.getText()));
+                                validate = true;
+                            }catch (Exception e){
+                                JOptionPane.showMessageDialog(null, "Dados Invalidos");
+                            }
+                            break;
+
+                    }
+                    if (validate == true){
+                        setVisible(false);
+                        espera = 0;
+                    }
                 }
             });
 
@@ -134,10 +161,6 @@ public class Telas extends JFrame {
         return escolha_tela;
     }
 
-    public void DataBaseOperations(int idOperation, String item_1,String item_2,String item_3,String item_4){
-
-    }
-
     public int getEspera() {
         return espera;
     }
@@ -145,5 +168,4 @@ public class Telas extends JFrame {
     public void setEspera(int espera) {
         this.espera = espera;
     }
-
 }
